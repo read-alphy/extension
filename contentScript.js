@@ -907,7 +907,7 @@ const appendEmptyDataUI = (container) => {
   container.style.fontSize = "14px";
   container.innerHTML = `
   <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-    <p style="margin: 0px;">Looks like this spaces haven't been summarized yet. Would you like to summarize it now?</p>
+    <p style="margin: 0px;">Looks like this video haven't been summarized yet. Would you like to summarize it now?</p>
     <button onClick="window.open('https://alphy.app', '_blank')" style="margin: 10px; padding: 10px; border-radius: 5px; border: none; background-color: #262627; display:flex; align-items:center; } ; color: white; cursor: pointer;"><img
     src="https://alphy.app/favicon.ico" style="width: 20px; height: 20px; margin-right: 5px;" /> Call Alphy</button>
   </div>
