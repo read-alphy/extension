@@ -4,9 +4,6 @@
   "description": "Question YT videos",
   "permissions": ["storage", "tabs", "scripting"],
   "host_permissions": ["https://*.youtube.com/*", "https://*.twitter.com/*"],
-  "background": {
-    "service_worker": "background.js"
-  },
   "content_scripts": [
     {
       "matches": ["https://*.youtube.com/*", "https://*.twitter.com/*"],
@@ -32,8 +29,7 @@
       "24": "assets/ext-icon.png",
       "32": "assets/ext-icon.png"
     },
-    "default_title": "Alphy",
-    "default_popup": "popup.html"
+    "default_title": "Alphy"
   },
   "manifest_version": 3
 }

@@ -210,8 +210,6 @@ const createQAToggle = (question, answer) => {
       "%0A%0A"
     )}`;
 
-    console.log(tweet);
-
     window.open(tweet);
   };
 
@@ -442,7 +440,6 @@ const renderQA = (qaData, container) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         // update the qaData
         qaData[question] = data;
         // clear the input
@@ -490,9 +487,6 @@ const fetchData = async (id, source) => {
   if (response.status === 404) {
     return null;
   }
-  console.log("data is fetched");
-  // console log current day time utc 3
-  console.log(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
 
   const data = await response.json();
   return data.key_qa;
@@ -503,6 +497,7 @@ const appendTwitterUI = async (id, container, data) => {
   borderColor = theme === "tw-light" ? "#EFF3F4" : "#2F3336";
   buttonColor = "#1C9BF1";
   buttonColorHover = "#1F8BD8";
+  container.style.fontFamily = "Roboto, sans-serif";
   textColor = theme === "tw-light" ? "#0F1419" : "#E7E9EA";
 
   container.style.color = `${textColor}`;
@@ -510,12 +505,10 @@ const appendTwitterUI = async (id, container, data) => {
   container.style.margin = "16px 0px";
   container.style.borderRadius = "12px";
   if (id) {
-    const qaData = await fetchData(id, "sp");
-    if (!qaData) {
+    if (!data) {
       injectButton(container);
     } else {
-      renderQA(qaData, container);
-      console.log("qa will be showed");
+      renderQA(data, container);
     }
   }
 };
@@ -595,6 +588,7 @@ const addStyles = () => {
     }
     .loading {
       display: none;
+      color: blue;
       justify-content: center;
       align-items: center;
       padding: 5px;
@@ -905,11 +899,19 @@ const toggleAnswerVisibility = (answerDiv, questionDiv, container) => {
 };
 
 const appendEmptyDataUI = (container) => {
-  container.innerHTML = "<p>Not ALPHY yet</p>";
   container.style.padding = "10px";
   container.style.backgroundColor = "gray";
+  container.style.borderRadius = "5px";
   container.style.color = "white";
-  container.style.fontSize = "20px";
+  // prompt user that this video is not in the alphy database yet, put a button to navigate to the alphy website to add the video
+  container.style.fontSize = "14px";
+  container.innerHTML = `
+  <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+    <p style="margin: 0px;">Looks like this spaces haven't been summarized yet. Would you like to summarize it now?</p>
+    <button onClick="window.open('https://alphy.app', '_blank')" style="margin: 10px; padding: 10px; border-radius: 5px; border: none; background-color: #262627; display:flex; align-items:center; } ; color: white; cursor: pointer;"><img
+    src="https://alphy.app/favicon.ico" style="width: 20px; height: 20px; margin-right: 5px;" /> Call Alphy</button>
+  </div>
+  `;
 };
 
 const processUrl = async (url) => {
@@ -960,11 +962,13 @@ const processUrl = async (url) => {
 
   let loading = document.querySelector(".loading");
   if (!loading) {
-    loading = createLoading();
+    // loading = createLoading();
+    loading = document.createElement("div");
+    loading.classList.add("loading");
+    loading.innerHTML = "Loading...";
     container.appendChild(loading);
   }
   loading.style.display = "flex";
-  loading.style.color = "green";
 
   fetchData(id, source)
     .then((data) => {
@@ -975,7 +979,11 @@ const processUrl = async (url) => {
           appendYoutubeUI(id, container, data);
         }
       } else {
-        appendEmptyDataUI(container);
+        if (source === "sp") {
+          appendTwitterUI(id, container, null);
+        } else {
+          appendEmptyDataUI(container);
+        }
       }
     })
     .finally(() => {
