@@ -730,8 +730,8 @@ const createForm = (container, id) => {
       answerDiv.classList.remove("show");
     });
 
-    const loading = container.querySelector(".loading");
-    loading.style.display = "flex";
+    // const loading = container.querySelector(".loading");
+    // loading.style.display = "flex";
     const question = input.value;
     input.value = "";
 
@@ -899,19 +899,20 @@ const toggleAnswerVisibility = (answerDiv, questionDiv, container) => {
 };
 
 const appendEmptyDataUI = (container) => {
-  container.style.padding = "10px";
-  container.style.backgroundColor = "gray";
-  container.style.borderRadius = "5px";
-  container.style.color = "white";
-  // prompt user that this video is not in the alphy database yet, put a button to navigate to the alphy website to add the video
-  container.style.fontSize = "14px";
-  container.innerHTML = `
+  const inner = document.createElement("div");
+  inner.style.padding = "10px";
+  inner.style.backgroundColor = "gray";
+  inner.style.borderRadius = "5px";
+  inner.style.color = "white";
+  inner.style.fontSize = "14px";
+  inner.innerHTML = `
   <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
     <p style="margin: 0px;">Looks like this video haven't been summarized yet. Would you like to summarize it now?</p>
     <button onClick="window.open('https://alphy.app', '_blank')" style="margin: 10px; padding: 10px; border-radius: 5px; border: none; background-color: #262627; display:flex; align-items:center; } ; color: white; cursor: pointer;"><img
     src="https://alphy.app/favicon.ico" style="width: 20px; height: 20px; margin-right: 5px;" /> Call Alphy</button>
   </div>
   `;
+  container.appendChild(inner);
 };
 
 const processUrl = async (url) => {
@@ -960,15 +961,15 @@ const processUrl = async (url) => {
 
   // fethc data and show loading meanwhile
 
-  let loading = document.querySelector(".loading");
-  if (!loading) {
-    // loading = createLoading();
-    loading = document.createElement("div");
-    loading.classList.add("loading");
-    loading.innerHTML = "Loading...";
-    container.appendChild(loading);
-  }
-  loading.style.display = "flex";
+  // let loading = document.querySelector(".loading");
+  // if (!loading) {
+  //   // loading = createLoading();
+  //   loading = document.createElement("div");
+  //   loading.classList.add("loading");
+  //   loading.innerHTML = "Loading...";
+  //   container.appendChild(loading);
+  // }
+  // loading.style.display = "flex";
 
   fetchData(id, source)
     .then((data) => {
