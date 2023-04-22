@@ -265,7 +265,7 @@ const createQAToggle = (question, answer) => {
   questionElement.style.fontWeight = "bold";
   questionElement.style.cursor = "pointer";
 
-  answerElement.textContent = answer;
+  answerElement.innerHTML = answer;
   answerElement.style.display = "block";
 
   qaElement.addEventListener("mouseover", () => {
