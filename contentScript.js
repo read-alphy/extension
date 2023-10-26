@@ -681,7 +681,7 @@ const createAlphyBanner = (container, id,title) => {
 
   
   const disclaimer = document.createElement("p");
-  disclaimer.innerHTML = `<p>Visit <a href="https://alphy.app/yt/${id}" target="_blank" style="color:${theme==="yt-light?" ? "#4ade80":"#86efac"};"> Alphy</a> to ask questions and create an Arc with "${title}"</p>`;
+  disclaimer.innerHTML = `<p>VisitAlphy</a> to ask questions and create an Arc with <a href="https://alphy.app/yt/${id}" target="_blank" style="color:${theme==="yt-light?" ? "#4ade80":"#86efac"};"> ${title}</a></p>`;
 
   disclaimer.style.margin = "0";
   disclaimer.style.paddingLeft = "5px";
